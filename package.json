@@ -1,0 +1,95 @@
+{
+  "name": "wares-launcher",
+  "productName": "Wares Launcher",
+  "version": "1.0.1",
+  "description": "Fast, low-memory Minecraft launcher with profiles, Modrinth integration and loader support.",
+  "author": "VisdomXD",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "release": "electron-builder --publish always"
+  },
+  "dependencies": {
+    "msmc": "^5.0.5",
+    "yauzl": "^3.2.0",
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "@fontsource/barlow": "^5.2.0",
+    "@fontsource/barlow-condensed": "^5.2.0",
+    "electron": "^45.1.0",
+    "electron-builder": "^26.0.0",
+    "lucide-static": "^0.468.0"
+  },
+  "build": {
+    "appId": "dev.visdomxd.wareslauncher",
+    "productName": "Wares Launcher",
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "src/**/*",
+      "renderer/**/*",
+      "build/icon.png",
+      "package.json",
+      "!renderer/assets/wallpapers/*.{mp4,webm,gif,mov,mkv}",
+      "!**/node_modules/**/{test,tests,__tests__,docs,example,examples,.github}/**",
+      "!**/node_modules/**/*.{md,markdown,map,ts,flow}"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "artifactName": "Wares-Launcher-Setup-${version}.${ext}"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Game",
+      "icon": "build/icon.png",
+      "artifactName": "Wares-Launcher-${version}.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.games"
+    },
+    "asarUnpack": [
+      "renderer/assets/wallpapers/**"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "kbpro12",
+        "repo": "wares-launcher",
+        "releaseType": "release"
+      }
+    ],
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "differentialPackage": true
+    },
+    "compression": "maximum",
+    "electronLanguages": [
+      "en-US"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kbpro12/wares-launcher.git"
+  },
+  "homepage": "https://github.com/kbpro12/wares-launcher"
+}

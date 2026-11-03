@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="titanium">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: file: https:; media-src 'self' file: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wares Launcher</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+<div id="app">
+  <div id="bg" aria-hidden="true">
+    <div id="bg-media"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div id="bg-dim"></div>
+  </div>
+  <header id="titlebar"></header>
+  <div id="body">
+    <nav id="rail" aria-label="Sections"></nav>
+    <div id="stage">
+      <main id="view" tabindex="-1"></main>
+    </div>
+  </div>
+  <footer id="launchbar"></footer>
+</div>
+<div id="layer-popover"></div>
+<div id="layer-modal"></div>
+<div id="layer-toast" aria-live="polite"></div>
+
+<script src="js/icons.js"></script>
+<script src="js/core.js"></script>
+<script src="js/background.js"></script>
+<script src="js/views/home.js"></script>
+<script src="js/views/profiles.js"></script>
+<script src="js/views/content.js"></script>
+<script src="js/views/modpacks.js"></script>
+<script src="js/views/skins.js"></script>
+<script src="js/views/accounts.js"></script>
+<script src="js/views/console.js"></script>
+<script src="js/views/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
