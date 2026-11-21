@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; img-src data:">
+<title>Wares Launcher</title>
+<style>
+@font-face{font-family:'Barlow Condensed';font-weight:600;src:url(renderer/assets/fonts/barlow-condensed-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-weight:400;src:url(renderer/assets/fonts/barlow-latin-400-normal.woff2) format('woff2')}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:#1d2024;color:#e0e4e9;font:14px 'Barlow',system-ui,sans-serif;-webkit-user-select:none;-webkit-app-region:drag}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border:1px solid #0d0f11;
+  background:linear-gradient(180deg,#34383e 0%,#2a2e33 12%,#202328 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.mark{width:84px;height:84px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.45));animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.name{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:34px;letter-spacing:.02em;line-height:1;animation:rise .6s .08s cubic-bezier(.2,.7,.2,1) both}
+.bar{width:220px;height:4px;border-radius:2px;background:#14161a;box-shadow:inset 0 1px 2px rgba(0,0,0,.6);overflow:hidden;margin-top:6px}
+.bar i{display:block;width:34%;height:100%;border-radius:2px;background:linear-gradient(90deg,#4f78a8,#8fbdf0);animation:slide 1.15s cubic-bezier(.4,0,.2,1) infinite}
+.status{height:18px;color:#8b929b;font-size:12.5px}
+.ver{position:absolute;bottom:12px;color:#5f6670;font-size:11.5px}
+@keyframes slide{0%{transform:translateX(-110%)}100%{transform:translateX(330%)}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cdf5"/><stop offset=".55" stop-color="#6fa3e0"/><stop offset="1" stop-color="#4a76a8"/></linearGradient></defs>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="5" fill="url(#g)" stroke="rgba(0,0,0,.55)"/>
+  <rect x="2.5" y="2.5" width="27" height="13" rx="4" fill="rgba(255,255,255,.14)"/>
+  <path d="M7 10.5 11.6 22.5 16 13.8 20.4 22.5 25 10.5" fill="none" stroke="#0c1118" stroke-width="3" stroke-linecap="square"/>
+</svg>
+<div class="name">Wares Launcher</div>
+<div class="bar"><i></i></div>
+<div class="status" id="s">Starting</div>
+<div class="ver" id="v"></div>
+<script>window.setStatus=function(t){document.getElementById('s').textContent=t};window.setVersion=function(v){document.getElementById('v').textContent=v};</script>
+</body>
+</html>

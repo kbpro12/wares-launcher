@@ -1,0 +1,19 @@
+[package]
+name = "wares-native"
+version = "1.0.0"
+edition = "2021"
+authors = ["VisdomXD"]
+description = "Wares Launcher native helper: parallel download + SHA-1 verify"
+
+[dependencies]
+rayon = "1.8"
+sha1 = "0.10"
+ureq = { version = "2.9", default-features = false, features = ["tls"] }
+url = "=2.5.2"  # pinned: newer url pulls ICU crates that need a very new Rust
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

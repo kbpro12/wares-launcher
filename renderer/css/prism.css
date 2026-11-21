@@ -1,0 +1,93 @@
+/* Wares Launcher - Prism skin, dancing-player stage, appearance options. Loaded last.
+   Everything animates transform/opacity only; no blur, no filters. */
+
+/* ============================ option tokens ============================ */
+html{--rx:18px;--gap:14px;--pad:32px;--glow-a:35%;--glow-r:18px;--ps:1}
+html[data-radius=sharp]{--rx:8px}
+html[data-radius=round]{--rx:28px}
+html[data-density=compact]{--gap:10px;--pad:20px}
+html[data-glow=off]{--glow-a:0%;--glow-r:0px}
+html[data-glow=vivid]{--glow-a:70%;--glow-r:30px}
+html[data-psize=s]{--ps:.82}
+html[data-psize=l]{--ps:1.12}
+
+/* ================================ stage ================================ */
+.home-main{container-type:inline-size}
+html[data-player=on] .hero{--s:calc(clamp(6px,1.05cqw,9px) * var(--ps));position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:calc(var(--s) * 50);overflow:hidden;isolation:isolate;container-type:normal;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--panel) var(--panel-a),transparent),color-mix(in srgb,var(--well) var(--panel-a),transparent))}
+html[data-player=on] .hero-head{flex-direction:column;align-items:flex-start;gap:16px;width:52%;padding:30px 0 0 34px;position:relative;z-index:2}
+html[data-player=on] .hero-head .grow{width:100%}
+html[data-player=on] .hero-actions{display:none}
+html[data-player=on] .hero-title{font-size:calc(var(--s) * 5.4);letter-spacing:-.02em}
+html[data-player=on] .hero-foot{width:52%;flex-wrap:wrap;position:relative;z-index:2;border-top:0;background:none;padding:0 0 22px 34px}
+html[data-player=on] .hero-foot .stats{flex-wrap:wrap}
+
+.hero-stage{position:absolute;right:0;top:0;bottom:0;width:50%;z-index:3;pointer-events:none}
+.hero-stage .anchor{position:absolute;left:50%;bottom:calc(var(--s) * 12.5);width:0;height:0}
+
+/* the pad: a glowing floor disc the player stands on, plus a pill under it. Both are the Play button. */
+.hero-stage .lpad{position:absolute;left:0;top:0;width:0;height:0}
+.pad-disc{position:absolute;left:calc(var(--s) * -17);top:calc(var(--s) * -16.4);width:calc(var(--s) * 34);height:calc(var(--s) * 34);border-radius:50%;
+  transform:rotateX(72deg);pointer-events:auto;cursor:pointer;transition:transform .25s var(--ease);
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 52%,#0b0e13) 0 28%,color-mix(in srgb,var(--accent) 26%,#0b0e13) 29% 62%,color-mix(in srgb,var(--accent) 12%,#0b0e13) 63% 100%);
+  box-shadow:0 0 0 calc(var(--s) * .5) color-mix(in srgb,var(--accent) 70%,transparent),0 0 calc(var(--s) * 5) color-mix(in srgb,var(--accent) var(--glow-a),transparent)}
+.pad-disc::before{content:'';position:absolute;inset:11%;border-radius:50%;border:calc(var(--s) * .35) dashed color-mix(in srgb,var(--accent-hi) 75%,transparent);animation:pd-spin 16s linear infinite}
+.pad-disc::after{content:'';position:absolute;inset:35%;border-radius:50%;border:calc(var(--s) * .3) solid color-mix(in srgb,var(--accent-hi) 55%,transparent)}
+.hero-stage .lpad:hover .pad-disc{transform:rotateX(72deg) scale(1.06)}
+.pad-cta{position:absolute;left:0;top:calc(var(--s) * 7.2);transform:translateX(-50%);display:inline-flex;align-items:center;gap:.55em;height:calc(var(--s) * 4.6);
+  padding:0 calc(var(--s) * 2.8);border:0;border-radius:999px;font:700 calc(var(--s) * 1.9)/1 var(--font-display);letter-spacing:.14em;white-space:nowrap;
+  pointer-events:auto;cursor:pointer;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-hi),var(--accent) 60%,var(--accent-lo));
+  box-shadow:0 10px 26px color-mix(in srgb,var(--accent) var(--glow-a),transparent),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .15s}
+.pad-cta:hover{transform:translateX(-50%) scale(1.06)}
+.pad-cta:active{transform:translateX(-50%) scale(.95)}
+.pad-cta svg{width:1.15em;height:1.15em}
+.hero-stage .lpad.run .pad-cta{background:linear-gradient(135deg,#f4989d,#e5646d 60%,#b8434b);color:#fff;box-shadow:0 10px 26px rgba(229,100,109,.4)}
+.hero-stage .lpad.busy .pad-cta{background:var(--panel-3);color:var(--text);box-shadow:none}
+@keyframes pd-spin{to{transform:rotate(360deg)}}
+
+
+/* ================================ player (Rust canvas) ================================ */
+.hero-stage .pl-canvas{position:absolute;left:0;top:0;width:calc(var(--s) * 34);height:calc(var(--s) * 40.8);transform:translate(-50%,-90%);pointer-events:auto;cursor:pointer}
+
+/* ============================ Prism skin chrome ============================ */
+html[data-skin=prism] #titlebar{background:transparent;border-bottom:0}
+html[data-skin=prism] #body{--rail-w:76px;padding:0 14px;gap:var(--gap);column-gap:var(--gap)}
+html[data-skin=prism][data-rail=full] #body{--rail-w:228px}
+html[data-skin=prism] #rail{width:100%}
+html[data-skin=prism][data-rail-side=right] #body{grid-template-columns:minmax(0,1fr) var(--rail-w)}
+html[data-skin=prism][data-rail-side=right] #rail{order:2;justify-self:end}
+
+/* sidebar: a fixed icon rail (labels show as tooltips) or an always-open rail that reserves its own space. It never overlays the page. */
+html[data-skin=prism] #rail{width:auto;justify-self:stretch;margin:0;padding:12px 0 10px;border-radius:calc(var(--rx) * 1.4);overflow:visible;z-index:20;
+  border:1px solid color-mix(in srgb,var(--accent) 20%,var(--line-soft));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--panel) var(--chrome-a),transparent),color-mix(in srgb,var(--well) var(--chrome-a),transparent));
+  box-shadow:0 10px 36px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+html[data-skin=prism] .rail-item{position:relative;height:46px;margin:3px 15px;padding:0 13px;gap:16px;border-radius:calc(var(--rx) * .9);white-space:nowrap;font-weight:600;letter-spacing:.01em;color:var(--text-2)}
+html[data-skin=prism] body.rail-compact .rail-item{padding:0 13px;justify-content:flex-start}
+html[data-skin=prism] body.rail-compact .rail-item span{display:inline;position:absolute;left:calc(100% + 14px);top:50%;transform:translate(-4px,-50%);opacity:0;pointer-events:none;
+  padding:7px 12px;border-radius:10px;background:var(--panel-3);border:1px solid var(--line);color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.45);transition:opacity .14s,transform .14s}
+html[data-skin=prism] body.rail-compact .rail-item:hover span{opacity:1;transform:translate(0,-50%)}
+html[data-skin=prism][data-rail=full] body:not(.rail-compact) .rail-item span{opacity:1}
+html[data-skin=prism] .rail-item:hover{background:color-mix(in srgb,var(--accent) 13%,transparent);color:var(--text)}
+html[data-skin=prism] .rail-item::after{display:none}
+html[data-skin=prism] .rail-item.active{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-hi),var(--accent) 55%,var(--accent-lo));
+  box-shadow:0 6px 18px color-mix(in srgb,var(--accent) var(--glow-a),transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+html[data-skin=prism] .rail-item.active svg{color:var(--accent-ink)}
+html[data-skin=prism] .rail-sep{margin:8px 24px}
+html[data-skin=prism] .rail-foot{padding:8px 24px 0;gap:6px;overflow:hidden;white-space:nowrap}
+html[data-skin=prism] .rail-foot>button:last-child{display:none}
+
+html[data-skin=prism] #stage{border-radius:calc(var(--rx) * 1.4);border:1px solid color-mix(in srgb,var(--accent) 14%,var(--line-soft));box-shadow:0 12px 40px rgba(0,0,0,.28)}
+html[data-skin=prism] #launchbar{margin:var(--gap) 14px 14px;border-radius:calc(var(--rx) * 1.4);border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line-soft));box-shadow:0 10px 34px rgba(0,0,0,.35)}
+html[data-skin=prism] .home-main{padding:var(--pad) calc(var(--pad) + 4px) calc(var(--pad) + 8px)}
+html[data-skin=prism] .hero{border-radius:calc(var(--rx) * 1.4);border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line-soft))}
+html[data-skin=prism] .qtile,html[data-skin=prism] .panel,html[data-skin=prism] .news,html[data-skin=prism] .notice{border-radius:var(--rx)}
+html[data-skin=prism] .btn{border-radius:calc(var(--rx) * .75)}
+html[data-skin=prism] .btn.primary{background:linear-gradient(135deg,var(--accent-hi),var(--accent) 60%,var(--accent-lo));border-color:transparent;color:var(--accent-ink);
+  box-shadow:0 8px 22px color-mix(in srgb,var(--accent) var(--glow-a),transparent),inset 0 1px 0 rgba(255,255,255,.3)}
+html[data-skin=prism] .badge{border-radius:999px}
+html[data-skin=prism] .h2{display:flex;align-items:center;gap:10px}
+html[data-skin=prism] .h2::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--accent);box-shadow:0 0 var(--glow-r) var(--accent)}
+html[data-skin=prism] ::-webkit-scrollbar{width:10px}
+html[data-skin=prism] ::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:10px;border:3px solid transparent;background-clip:padding-box}

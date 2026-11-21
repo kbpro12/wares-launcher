@@ -1,0 +1,28 @@
+/* Wares Launcher - motion + performance layer. Loaded last. Animates transform/opacity only (compositor-driven). */
+
+/* ================= performance ================= */
+html[data-style] *,html[data-style] *::before,html[data-style] *::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html[data-style=modern]{--grain-brushed:none;--grain-fine:none}
+#view{contain:layout paint style;overscroll-behavior:contain}
+html.lite *,html.lite *::before,html.lite *::after{animation:none!important;transition:none!important}
+html.lite #bg-canvas{display:none}
+body.blurred .hero *,body.blurred 
+html[data-style=modern] .rail-item{position:relative;transition:background .18s,color .18s}
+.rail-item::after{content:'';position:absolute;left:-10px;top:50%;width:4px;height:0;border-radius:4px;background:var(--accent-hi);
+  box-shadow:0 0 12px var(--accent);transform:translateY(-50%);transition:height .26s cubic-bezier(.3,1.5,.5,1)}
+.rail-item.active::after{height:24px}
+.rail-item svg{transition:transform .28s cubic-bezier(.3,1.7,.5,1)}
+.rail-item:hover svg{transform:scale(1.16) rotate(-7deg)}
+.rail-item.active svg{transform:scale(1.08)}
+
+.lg-btn.primary,#launchbar .btn.primary{position:relative;overflow:hidden;isolation:isolate}
+.btn{transition:transform .12s,background .18s,border-color .18s,box-shadow .18s}
+.btn:active{transform:scale(.965)}
+
+.qtile{position:relative;overflow:hidden}
+.qtile::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(200px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 24%,transparent),transparent 70%)}
+.qtile:hover::before{opacity:1}
+.qtile .qicon{transition:transform .3s cubic-bezier(.3,1.7,.5,1)}
+.qtile:hover .qicon{transform:scale(1.14) rotate(-6deg)}
+
